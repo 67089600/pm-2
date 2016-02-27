@@ -439,7 +439,7 @@
 								<b class="arrow"></b>
 								<ul class="submenu">
 									<li class="">
-										<a href="<%=basePath%>/page/top-menu.jsp">
+										<a comp="dbDetailComp" style="cursor: pointer">
 											<i class="menu-icon fa fa-caret-right"></i>
 											数据表详情
 										</a>
@@ -455,23 +455,23 @@
 								</ul>
 							</li>
 							<li class="">
-								<a href="typography.html">
+								<a comp="areaComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									行政区域管理
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="elements.html">
+								<a comp="siteComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									监测站管理
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="buttons.html">
+								<a comp="poiComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
-									POI资料管理
+									POI数据管理
 								</a>
 								<b class="arrow"></b>
 							</li>
@@ -486,42 +486,42 @@
 						<b class="arrow"></b>
 						<ul class="submenu">
 							<li class="">
-								<a href="tables.html">
+								<a comp="needDocumentComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									需求文档
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="jqgrid.html">
+								<a comp="designDocumentComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									设计文档
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="jqgrid.html">
+								<a comp="develorDocumentComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									开发文档
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="jqgrid.html">
+								<a comp="projectDocumentComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									项目约束
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="jqgrid.html">
+								<a comp="testDocumentComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									测试文档
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="jqgrid.html">
+								<a comp="projectCodeComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									项目代码
 								</a>
@@ -538,21 +538,21 @@
 						<b class="arrow"></b>
 						<ul class="submenu">
 							<li class="">
-								<a href="form-elements.html">
+								<a comp="sysTaskComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									系统程序任务配置
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="form-elements-2.html">
+								<a comp="ideTaskComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									接口数据同步任务配置
 								</a>
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="form-wizard.html">
+								<a comp="forkTaskComp" style="cursor: pointer">
 									<i class="menu-icon fa fa-caret-right"></i>
 									数据跟踪配置
 								</a>
@@ -561,7 +561,7 @@
 						</ul>
 					</li>
 					<li class="">
-						<a href="widgets.html">
+						<a comp="logComp" style="cursor: pointer">
 							<i class="menu-icon fa fa-list-alt"></i>
 							<span class="menu-text">项目日常日志</span>
 						</a>
