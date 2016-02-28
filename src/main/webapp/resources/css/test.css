@@ -30,3 +30,13 @@
 	font-weight: 700;
 	overflow: visible;
 }
+.pageUl{
+	width:auto;
+	height: auto;
+}
+.pageUl li{
+	list-style-type:none;
+	float: left;
+	height:30px;
+	line-height: 30px;
+}
