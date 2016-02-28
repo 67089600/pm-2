@@ -26,6 +26,7 @@
 		<!-- ace settings handler -->
 		<link rel="stylesheet" href="<%=basePath%>/resources/css/test.css" />
 		<script src="<%=basePath%>/resources/assets/js/ace-extra.min.js"></script>
+
 	</head>
 
 	<body class="no-skin">
@@ -613,12 +614,20 @@
 
 						<div id="middle-content">
 
-							<div class="alert alert-info">
-								<button class="close" data-dismiss="alert">
-									<i class="ace-icon fa fa-times"></i>
-								</button>
-								<i class="ace-icon fa fa-hand-o-right"></i>
-								Please note that demo server is not configured to save the changes, therefore you may see an error message.
+							<div class="col-xs-12">
+								<div class="col-sm-6">
+									<div class="widget-box widget-color-green2">
+										<div class="widget-header">
+											<h4 class="widget-title lighter smaller">Browse Files</h4>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main padding-8">
+												<ul id="tree"></ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 
 						</div>
@@ -656,6 +665,7 @@
 		<!-- basic scripts -->
 		<!--[if !IE]> -->
 		<script src="<%=basePath%>/resources/assets/js/jquery.2.1.1.min.js"></script>
+		<script src="<%=basePath%>/resources/assets/js/fuelux.tree.min.js"></script>
 		<script src="<%=basePath%>/resources/js/index.js"></script>
 		<script src="<%=basePath%>/resources/js/app/dbApp/dbComp.js"></script>
 		<!-- <![endif]-->
@@ -682,6 +692,7 @@
 		<!-- ace scripts -->
 		<script src="<%=basePath%>/resources/assets/js/ace-elements.min.js"></script>
 		<script src="<%=basePath%>/resources/assets/js/ace.min.js"></script>
+
 
 
 		<!-- inline scripts related to this page -->
