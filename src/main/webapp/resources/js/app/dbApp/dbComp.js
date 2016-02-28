@@ -33,8 +33,9 @@ var dbComp = {
         page:{
             currentPage:1,
             allPage:0,
-            onePageCount:5,
-            length:23
+            onePageCount:10,
+            length:23,
+            defaultCount:10
         }
     },
     /**
@@ -81,15 +82,11 @@ var dbComp = {
                 $('#dbSqlEditor').text('');
             }else{//执行
                 var resultComp = dbComp.createResultTable();
-                if(!!dbComp.resultTableResult){
-                    $(dbComp.resultTableResult).remove();
-                    dbComp.resultTableResult = null;
-                }
-                dbComp.resultTableResult = resultComp;
                 $(resultComp).appendTo(allComp);
             }
         });
         var allComp = $('<div></div>');
+        dbComp.allComp = allComp;
         $(content).appendTo(allComp);
         return allComp;
     },
@@ -121,6 +118,10 @@ var dbComp = {
      * @returns {*|jQuery|HTMLElement}
      */
     createResultTable: function(){
+        if(!!dbComp.resultTableResult){
+            $(dbComp.resultTableResult).remove();
+            dbComp.resultTableResult = null;
+        }
         var content = $('<div class="col-xs-12">' +
             '<h4 class="header green clearfix">SQL语句执行结果</h4>' +
             '</div>');
@@ -130,6 +131,8 @@ var dbComp = {
         //$(table).appendTo(content);
         $(tableList).appendTo(content);
         $(pageBar).appendTo(content);
+
+        dbComp.resultTableResult = content;
         return content;
     },
     createTableTitle: function(){
@@ -201,8 +204,8 @@ var dbComp = {
                     }else if(value==='tools'){
                         tempTh = $('<th class="dbTh" style="width: 80px;">' +
                             '<div class="ui-jqgrid-sortable">' +
-                            '<i val="update" dataId="'+dataId+'" class="ace-icon fa fa-pencil align-left bigger-125" style="padding-left: 15px;"></i>' +
-                            '<i val="delete" dataId="'+dataId+'" class="ace-icon fa fa-trash-o align-right bigger-125" style="padding-left: 15px;"></i>' +
+                            '<i val="update" dataId="'+dataId+'" class="ace-icon fa fa-pencil blue align-left bigger-125" style="padding-left: 15px;"></i>' +
+                            '<i val="delete" dataId="'+dataId+'" class="ace-icon fa fa-trash-o red align-right bigger-125" style="padding-left: 15px;"></i>' +
                             '</div>' +
                             '</th>');
                     }else{
@@ -224,6 +227,7 @@ var dbComp = {
             console.info('val',$(this).attr('val'));
             console.info('id',$(this).attr('dataId'));
         });
+        dbComp.tableList = table;
         return table;
     },
     /**
@@ -264,32 +268,97 @@ var dbComp = {
         //生成操作工具栏结束
 
         var pageOption = dbComp.option.page;
-
         //生成分布工具开始
         var pageBar = $('<table border="0" style="table-layout:auto;" class="ui-pg-table">' +
             '<tr>' +
                 '<td style="cursor: default;" class="ui-pg-button ui-corner-all ui-state-disabled">' +
-                    '<span class="ui-icon ace-icon fa fa-angle-double-left bigger-140"></span>' +
+                    '<span pageType="first" class="ui-icon ace-icon fa fa-angle-double-left bigger-140"></span>' +
                 '</td>' +
                 '<td id="prev_grid-pager" class="ui-pg-button ui-corner-all ui-state-disabled" style="cursor: default;">' +
-                    '<span class="ui-icon ace-icon fa fa-angle-left bigger-140"></span>' +
+                    '<span pageType="prev" class="ui-icon ace-icon fa fa-angle-left bigger-140"></span>' +
                 '</td>' +
-            '<td>Page <input class="ui-pg-input" type="text" size="2" maxlength="7" value="1" role="textbox"> of <span>'+dbComp.option.page.allPage+'</span></td>' +
-            '<td id="next_grid-pager" class="ui-pg-button ui-corner-all" style="cursor: default;">' +
-                '<span class="ui-icon ace-icon fa fa-angle-right bigger-140"></span>' +
-            '</td>' +
+                '<td>Page <input id="currentPage" class="ui-pg-input" type="text" size="2" maxlength="7" value="1" role="textbox"> of <span>'+dbComp.option.page.allPage+'</span></td>' +
+                '<td id="next_grid-pager" class="ui-pg-button ui-corner-all" style="cursor: default;">' +
+                    '<span pageType="next" class="ui-icon ace-icon fa fa-angle-right bigger-140"></span>' +
+                '</td>' +
                 '<td id="last_grid-pager" class="ui-pg-button ui-corner-all" style="cursor: default;">' +
-                    '<span class="ui-icon ace-icon fa fa-angle-double-right bigger-140"></span>' +
+                    '<span pageType="last" class="ui-icon ace-icon fa fa-angle-double-right bigger-140"></span>' +
                 '</td>' +
-            '<td>' +
-                '<select class="ui-pg-selbox">' +
-                    '<option role="option" value="10" selected="selected">'+pageOption.onePageCount+'</option>' +
-                    '<option role="option" value="20">'+pageOption.onePageCount*2+'</option>' +
-                    '<option role="option" value="30">'+pageOption.onePageCount*3+'</option>' +
-                '</select>' +
-            '</td>' +
+                '<td>' +
+                    '<select class="ui-pg-selbox"></select>' +
+                '</td>' +
             '</tr>' +
         '</table>');
+
+        var $selectObj = $(pageBar).find('select');
+        var sel = '';//是否选中
+        for(var i=1;i<=3;i++){
+            if(i*10 === pageOption.defaultCount){
+                sel = 'selected="selected"';
+            }else{
+                sel = '';
+            }
+            var options = $('<option role="option" value="'+i*10+'" '+sel+'>'+i*10+'</option>');
+            $(options).appendTo($selectObj);
+        }
+
+        //分面下拉框添加事件
+        $selectObj.change(function(){
+            var optionVal = $(this).children('option:selected').val();
+            pageOption.onePageCount = parseInt(optionVal);
+            pageOption.defaultCount = parseInt(optionVal);
+            $(dbComp.createResultTable()).appendTo(dbComp.allComp);
+        });
+
+        //分页切换事件
+        $(pageBar).find('td span').click(function(){
+            var pageType = $(this).attr('pageType');
+            if(!!pageType){
+                switch (pageType){
+                    case 'prev':
+                        pageOption.currentPage -= 1;
+                        break;
+                    case 'next':
+                        pageOption.currentPage += 1;
+                        break;
+                    case 'first':
+                        pageOption.currentPage = 1;
+                        break;
+                    case 'last':
+                        pageOption.currentPage = pageOption.allPage;
+                        break;
+                }
+                pageOption.currentPage = pageOption.currentPage <= 0 ? 1 : pageOption.currentPage;
+                pageOption.currentPage = pageOption.currentPage > pageOption.allPage ? pageOption.allPage : pageOption.currentPage;
+
+                if(pageOption.currentPage === pageOption.allPage){
+                    $(pageBar).find('td span').each(function(){
+                        var buttonType = $(this).attr('pageType');
+                        if(buttonType==='next'||buttonType==='last'){
+                            $(this).parent().addClass('ui-state-disabled');
+                        }else{
+                            $(this).parent().removeClass('ui-state-disabled');
+                        }
+                    });
+                }else if(pageOption.currentPage === 1){
+                    $(pageBar).find('td span').each(function(){
+                        var buttonType = $(this).attr('pageType');
+                        if(buttonType==='prev'||buttonType==='first'){
+                            $(this).parent().addClass('ui-state-disabled');
+                        }else{
+                            $(this).parent().removeClass('ui-state-disabled');
+                        }
+                    });
+                }else{
+                    $(pageBar).find('td span').each(function(){
+                        $(this).parent().removeClass('ui-state-disabled');
+                    });
+                }
+
+                $('#currentPage').attr('value',pageOption.currentPage);
+                $(dbComp.tableList).replaceWith(dbComp.createTableList());
+            }
+        });
         $(pageBar).appendTo($contentTds[1]);
         //生成分布工具结束
 
