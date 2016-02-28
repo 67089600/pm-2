@@ -1,5 +1,6 @@
 $(function(){
     var title = {
+        'projectIntrComp':'项目介绍',
         'dbComp':'数据库管理',
         'dbDetailComp':'数据表详情',
         'areaComp':'行政区域管理',

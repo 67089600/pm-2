@@ -414,7 +414,7 @@
 				</div><!-- /.sidebar-shortcuts -->
 				<ul class="nav nav-list" id="pm-nav">
 					<li class="active">
-						<a href="index.html">
+						<a comp="projectIntrComp" style="cursor: pointer">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 项目介绍 </span>
 						</a>
@@ -613,74 +613,13 @@
 
 						<div id="middle-content">
 
-							<%--<div class="col-xs-12">--%>
-								<div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="width: auto;">
-									<div class="ui-state-default ui-jqgrid-pager ui-corner-bottom" style="width: auto;">
-										<div class="ui-pager-control">
-											<table border="0" class="ui-pg-table" style="width:100%;table-layout:fixed;height:100%;">
-												<tr>
-													<td align="left">
-														<table border="0" class="ui-pg-table navtable" style="float:left;table-layout:auto;">
-															<tr>
-																<td class="ui-pg-button ui-corner-all" title="">
-																	<div class="ui-pg-div">
-																		<span class="ui-icon ace-icon fa fa-plus-circle purple"></span>
-																	</div>
-																</td>
-																<td class="ui-pg-button ui-corner-all" title="">
-																	<div class="ui-pg-div">
-																		<span class="ui-icon ace-icon fa fa-trash-o red"></span>
-																	</div>
-																</td>
-																<td class="ui-pg-button ui-corner-all" title="">
-																	<div class="ui-pg-div">
-																		<span class="ui-icon ace-icon fa fa-search orange"></span>
-																	</div>
-																</td>
-																<td class="ui-pg-button ui-corner-all" title="">
-																	<div class="ui-pg-div">
-																		<span class="ui-icon ace-icon fa fa-refresh green"></span>
-																	</div>
-																</td>
-															</tr>
-														</table>
-													</td>
-													<td align="center" style="width: auto;height: auto;">
-														<table border="0" style="table-layout:auto;" class="ui-pg-table">
-															<tr>
-																<td style="cursor: default;" class="ui-pg-button ui-corner-all ui-state-disabled">
-																	<span class="ui-icon ace-icon fa fa-angle-double-left bigger-140"></span>
-																</td>
-																<td id="prev_grid-pager" class="ui-pg-button ui-corner-all ui-state-disabled" style="cursor: default;">
-																	<span class="ui-icon ace-icon fa fa-angle-left bigger-140"></span>
-																</td>
-																<td>Page <input class="ui-pg-input" type="text" size="2" maxlength="7" value="0" role="textbox"> of <span id="sp_1_grid-pager">2</span>
-																</td>
-																<td id="next_grid-pager" class="ui-pg-button ui-corner-all" style="cursor: default;">
-																	<span class="ui-icon ace-icon fa fa-angle-right bigger-140"></span>
-																</td>
-																<td id="last_grid-pager" class="ui-pg-button ui-corner-all" style="cursor: default;">
-																	<span class="ui-icon ace-icon fa fa-angle-double-right bigger-140"></span>
-																</td>
-																<td>
-																	<select class="ui-pg-selbox">
-																		<option role="option" value="10" selected="selected">10</option>
-																		<option role="option" value="20">20</option>
-																		<option role="option" value="30">30</option>
-																	</select>
-																</td>
-															</tr>
-														</table>
-													</td>
-													<td align="right">
-														<div style="text-align:right" class="ui-paging-info">View 1 - 18 of 21</div>
-													</td>
-												</tr>
-											</table>
-										</div>
-									</div>
-								</div>
-							<%--</div>--%>
+							<div class="alert alert-info">
+								<button class="close" data-dismiss="alert">
+									<i class="ace-icon fa fa-times"></i>
+								</button>
+								<i class="ace-icon fa fa-hand-o-right"></i>
+								Please note that demo server is not configured to save the changes, therefore you may see an error message.
+							</div>
 
 						</div>
 					</div>

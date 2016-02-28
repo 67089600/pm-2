@@ -81,7 +81,15 @@ var dbComp = {
             if($(this).attr('val') === 'clean'){//清除
                 $('#dbSqlEditor').text('');
             }else{//执行
-                var resultComp = dbComp.createResultTable();
+                var dbSqlStr = $('#dbSqlEditor').text();
+                var resultComp = null;
+                if(dbSqlStr.indexOf('SELECT')!==-1){//显示查询结果
+                    resultComp = dbComp.createResultTable();
+                }else if(dbSqlStr.trim()===''){
+                    resultComp = dbComp.warnInfoShow('请输入SQL语句。');
+                }else{
+                    resultComp = dbComp.warnInfoShow('操作执行成功，影响记录：10条。');
+                }
                 $(resultComp).appendTo(allComp);
             }
         });
@@ -121,6 +129,10 @@ var dbComp = {
         if(!!dbComp.resultTableResult){
             $(dbComp.resultTableResult).remove();
             dbComp.resultTableResult = null;
+        }
+        if(!!dbComp.warnInfo){
+            $(dbComp.warnInfo).remove();
+            dbComp.warnInfo = null;
         }
         var content = $('<div class="col-xs-12">' +
             '<h4 class="header green clearfix">SQL语句执行结果</h4>' +
@@ -258,11 +270,26 @@ var dbComp = {
             var tempData = tools[key];
             var tempTd = $('<td class="ui-pg-button ui-corner-all" title="'+tempData.title+'">' +
             '<div class="ui-pg-div">' +
-            '<span class="ui-icon ace-icon fa '+tempData.css+'"></span>' +
+            '<span toolType="'+tempData.name+'" class="ui-icon ace-icon fa '+tempData.css+'"></span>' +
             '</div></td>');
             $(tempTd).appendTo($(toolsBar).find('tr'));
         }
 
+        $(toolsBar).find('td span').click(function(){
+            var toolType = $(this).attr('toolType');
+            switch (toolType){
+                case 'add':
+                    break;
+                case 'delete':
+                    break;
+                case 'find':
+                    break;
+                case 'reload':
+                    pageOption.currentPage = 1;
+                    $(dbComp.createResultTable()).appendTo(dbComp.allComp);
+                    break;
+            }
+        });
         var $contentTds = $(content).find('td');
         $(toolsBar).appendTo($contentTds[0]);
         //生成操作工具栏结束
@@ -366,6 +393,28 @@ var dbComp = {
         var listWarn = $('<div style="text-align:right" class="ui-paging-info">View '+((pageOption.currentPage-1)*pageOption.onePageCount+1)+' - '+pageOption.currentPage*pageOption.onePageCount+' of '+pageOption.length+'</div>');
         $(listWarn).appendTo($contentTds[2]);
         //生成记录总数提醒结束
+        return content;
+    },
+    warnInfoShow: function(warnShow){
+        if(!!dbComp.warnInfo){
+            $(dbComp.warnInfo).remove();
+            dbComp.warnInfo = null;
+        }
+        if(!!dbComp.resultTableResult){
+            $(dbComp.resultTableResult).remove();
+            dbComp.resultTableResult = null;
+        }
+        var content = $('<div class="col-xs-12">' +
+            '<h4 class="header green clearfix">SQL语句执行结果</h4>' +
+                '<div class="alert alert-info">' +
+                '<button class="close" data-dismiss="alert">' +
+                    '<i class="ace-icon fa fa-times"></i>' +
+                '</button>' +
+                    '<i class="ace-icon fa fa-hand-o-right"></i>' +
+                    ''+warnShow+'' +
+            '</div>' +
+            '</div>');
+        dbComp.warnInfo = content;
         return content;
     }
 };
